@@ -9,8 +9,8 @@
 
 	li $s0, 0xFFFF0010 # Load the display address
 	
-	# Loop to display all digits:
-  	display_loop:
+    
+    display_loop: # Loop to display all digits:
     	lbu $t1, seven_seg_table($t0)  # Load value from the table
     	sb $t1, 0($s0)                 # Store it in the display address
     	addi $t0, $t0, 1               # Increment the index for the next digit
