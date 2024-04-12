@@ -71,7 +71,3 @@
 	# Reset command row value
 	srl $t0, $t0, 4
 	j MainLoop
-	
-	
-	
-	
