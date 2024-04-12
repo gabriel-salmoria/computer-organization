@@ -9,7 +9,7 @@
 
 	li $s0, 0xFFFF0010 	      	     # Load the display address
     
-    Loop: # while($t0 < 10)           	     # Loop to display all digits
+    Loop:                       	     # while($t0 < 10)
     	lb $t1, seven_seg_lookup_table($t0)  # Load value from the table
     	sb $t1, 0($s0)                	     # Store it in the display address
     	addi $t0, $t0, 1              	     # Increment the index for the next digit
