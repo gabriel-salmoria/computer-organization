@@ -1,5 +1,5 @@
 .data
-    MAX: .word 3
+    MAX: .word 16
     block_size: .word 2
     A: .space 1024
     B: .space 1024
@@ -7,16 +7,19 @@
 .text
 				# Preencher a matriz A
     		la $a0, A     # Passa o endereço base da matriz A no registrador $a0
+    		lw $a1, MAX
     		jal preencher     # Chama a função para preencher a matriz
 
 		    # Preencher a matriz B
   		  la $a0, B     # Passa o endereço base da matriz B no registrador $a0
+  		  lw $a1, MAX
 	  	  jal preencher     # Chama a função para preencher a matriz
 
 				j main
 
 		preencher:
     		move $t1, $a0       # Move o endereço base da matriz para $t1
+    		move $s0, $a1
     		li $t0, 0           # Inicializa o contador de elementos em 0
     		li $t2, 0           # Inicializa o índice da coluna em 0
 
@@ -36,10 +39,10 @@
 
     		addi $t0, $t0, 1  						  # Incrementa o contador
 	   		addi $t3, $t3, 1	    					# Incrementa o índice da linha
-		    bne $t3, 16, preencher_linhas  	# Se não percorreu todas as linhas, continue
+		    bne $t3, $s0, preencher_linhas  	# Se não percorreu todas as linhas, continue
 
     		addi $t2, $t2, 1						    # Incrementa o índice da coluna
-    		bne $t2, 16, preencher_colunas  # Se não percorreu todas as colunas, continue
+    		bne $t2, $s0, preencher_colunas  # Se não percorreu todas as colunas, continue
 
     		jr $ra              # Retorna para a chamada anterior
 
