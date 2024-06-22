@@ -53,6 +53,9 @@
         lw   $s0, 0($t0)                 # s0 = MAX
         la   $t1, block_size
         lw   $s1, 0($t1)                 # s1 = block_size
+        
+        la   $s2, A
+				la   $s3, B
 
         # Inicializa as variáveis
         li   $t0, 0                      # t0 = i
@@ -103,22 +106,17 @@
         add $t5, $t1, $s1                # t5 = j + block_size
         bge  $t3, $t5, add_ii            # if (jj >= j + block_size)
 
-        # Calcula index de A[ii][jj]
+
+        # Calcular índice para A[ii][jj]
         mul  $t6, $t2, $s0               # t6 = ii * MAX
         add  $t6, $t6, $t3               # t6 = ii * MAX + jj
-
-        # Calcula index de B[jj][ii]
-        mul  $t7, $t3, $s0               # t7 = jj * MAX
-        add  $t7, $t7, $t2               # t7 = jj * MAX + ii
-
-        # Carrega A[ii][jj]
-        la   $s2, A
         sll  $t6, $t6, 2                 # t6 = (ii * MAX + jj) * 4 (offset)
         add  $s2, $s2, $t6
         lwc1 $f0, 0($s2)                 # f0 = A[ii][jj]
 
-        # Carrega B[jj][ii]
-        la   $s3, B
+        # Calcular índice para B[jj][ii]
+        mul  $t7, $t3, $s0               # t7 = jj * MAX
+        add  $t7, $t7, $t2   
         sll  $t7, $t7, 2                 # t7 = (jj * MAX + ii) * 4 (offset)
         add  $s3, $s3, $t7
         lwc1 $f1, 0($s3)                 # f1 = B[jj][ii]

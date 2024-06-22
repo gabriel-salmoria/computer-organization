@@ -69,6 +69,9 @@
         li   $t1, 0          # j = 0
         j loop_j
 
+		add_j:
+				addi $t1, $t1, 1
+				
     loop_j:
         bge  $t1, $s0, loop_i  # if (j >= MAX)
 
@@ -81,7 +84,6 @@
         
         # Calcular índice para B[j][i]
         mul   $t5, $t1, $s0     # t5 = j * MAX
-        
         add  $t5, $t5, $t0     # t5 = j * MAX + i
         sll  $t5, $t5, 2       # t5 = (j * MAX + i) * 4
         add  $t5, $t5, $s2     # t5 = B + (j * MAX + i) * 4
@@ -93,7 +95,7 @@
         # Guarda o resultado em A[i][j]
         swc1 $f2, 0($t4)
         
-        addi $t1, $t1, 1
-        j loop_j
+        
+        j add_j
 
     end:
